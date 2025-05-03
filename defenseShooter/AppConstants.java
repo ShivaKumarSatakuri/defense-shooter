@@ -24,6 +24,10 @@ public class AppConstants {
     public static final int LEFT_WALL_BOUNDARY = 50;
     public static final int TOP_WALL_BOUNDARY = 50;
 
+    /*>>>>> Wall boundaries <<<<<*/
+    public static final int DEFAULT_PLAYER_POSITION_X = 300;
+    public static final int DEFAULT_PLAYER_POSITION_Y = 300;
+
     public static final int COLLISION_RANGE = 50;          // Minimum distance to detect a collision between a bouncing bullet and fired bullet
 
     public static final int TIMER_CONSTANT = 15;           // Timer constant to update the events and movements
