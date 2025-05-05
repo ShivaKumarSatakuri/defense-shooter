@@ -24,6 +24,11 @@ public class AppConstants {
     public static final int LEFT_WALL_BOUNDARY = 50;
     public static final int TOP_WALL_BOUNDARY = 50;
 
+    public static final int LEFT_WALL = LEFT_WALL_BOUNDARY;
+    public static final int RIGHT_WALL = LEFT_WALL + WALL_WIDTH;
+    public static final int TOP_WALL = TOP_WALL_BOUNDARY;
+    public static final int BOTTOM_WALL = TOP_WALL + WALL_HEIGHT;
+
     /*>>>>> Wall boundaries <<<<<*/
     public static final int DEFAULT_PLAYER_POSITION_X = 300;
     public static final int DEFAULT_PLAYER_POSITION_Y = 300;
