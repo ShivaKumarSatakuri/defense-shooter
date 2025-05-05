@@ -192,7 +192,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
 
         // Update bullets
         for (Bullet b : bullets) {
-            b.updateBulletPosition();
+            b.moveBulletAhead();
             checkAndMergeBullets();
 
             //--------
@@ -217,7 +217,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
         }
 
         for (Bullet b : bouncingBullets) {
-            b.updateBulletPosition();
+            b.moveBulletAhead();
             checkAndMergeBullets();
         }
 

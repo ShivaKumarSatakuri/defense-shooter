@@ -36,7 +36,7 @@ public class Bullet {
     /**
      * This method keeps the bullet moving until it hits the wall(s). When hit, it'll invoke the bounce method
      */
-    public void updateBulletPosition() {
+    public void moveBulletAhead() {
         x += dx * AppConstants.BULLET_SPEED;
         y += dy * AppConstants.BULLET_SPEED;
 
@@ -45,11 +45,11 @@ public class Bullet {
 
         boolean bounced = false;
 
-        if (x <= 50 || x >= 550) {
+        if (x <= AppConstants.LEFT_WALL || x >= AppConstants.RIGHT_WALL) {
             dx = -dx;
             bounced = true;
         }
-        if (y <= 50 || y >= 550) {
+        if (y <= AppConstants.TOP_WALL || y >= AppConstants.BOTTOM_WALL) {
             dy = -dy;
             bounced = true;
         }
@@ -122,7 +122,7 @@ public class Bullet {
 
             int rippleSize = (30 - rippleTimer) * 2; // grows as time passes
 
-            // This loop takes care of creating a ripple(semi-circle) with calculated radius
+            // This loop takes care of creating a ripples(semi-circles) with calculated radius
             for (int i = 1; i <= 3; i++) { // 3 Wi-Fi arcs
                 int radius = rippleSize * i;
                 graphics.drawArc((int) (x - (double) radius / 2), (int) (y - (double) radius / 2), radius, radius, 0, 180);
