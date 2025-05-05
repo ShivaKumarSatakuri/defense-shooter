@@ -10,7 +10,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
     private final Timer timer;
 
     // Player
-    transient Image jetImage;                               // Player image - Load jet image from constructor
+    private transient Image jetImage;                               // Player image - Load jet image from constructor
 
     // playerX and playerY are the X and Y axis co-ordinates of the player's position. Assigning default values here.
     private int playerX = AppConstants.DEFAULT_PLAYER_POSITION_X;
