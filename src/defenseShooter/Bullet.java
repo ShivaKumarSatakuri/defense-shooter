@@ -40,6 +40,7 @@ public class Bullet {
         x += dx * AppConstants.BULLET_SPEED;
         y += dy * AppConstants.BULLET_SPEED;
 
+        // Ripple display decider and enabler
         if (rippleTimer > 0) rippleTimer--;
         else rippleActive = false;
 
@@ -120,11 +121,11 @@ public class Bullet {
         if (rippleActive) {
             graphics.setColor(Color.BLACK);
 
-            int rippleSize = (30 - rippleTimer) * 2; // grows as time passes
+            int rippleSize = (30 - rippleTimer) * 2; // Determines size of every ripple
 
-            // This loop takes care of creating a ripples(semi-circles) with calculated radius
-            for (int i = 1; i <= 3; i++) { // 3 Wi-Fi arcs
-                int radius = rippleSize * i;
+            // This loop takes care of displaying ripples(semi-circles) with calculated radius and ripple growth
+            for (int i = 1; i <= 3; i++) {          // 3 Wi-Fi arcs
+                int radius = rippleSize * i;        //determines size of each ripple
                 graphics.drawArc((int) (x - (double) radius / 2), (int) (y - (double) radius / 2), radius, radius, 0, 180);
             }
         }
