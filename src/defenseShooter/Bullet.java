@@ -29,7 +29,7 @@ public class Bullet {
         this.dy = dy;
 
         this.rippleActive = true;
-        this.rippleTimer = 30;
+        this.rippleTimer = AppConstants.RIPPLE_TIMER;
     }
 
 

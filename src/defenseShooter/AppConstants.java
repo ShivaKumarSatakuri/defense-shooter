@@ -8,6 +8,7 @@ public class AppConstants {
     /*********** Bullet class constants ******************/
     public static final double BULLET_SPEED = 5;
     public static final int BULLET_SIZE = 5;
+    public static final int RIPPLE_TIMER = 30;        // Determines how soon the ripple starts/shows up once the bullet is fired
 
 
     /*********** DefenseShooter class constants ******************/
