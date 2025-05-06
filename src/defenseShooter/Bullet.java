@@ -46,6 +46,7 @@ public class Bullet {
 
         boolean bounced = false;
 
+        // If bullet touches any of the walls, reverse the direction
         if (x <= AppConstants.LEFT_WALL || x >= AppConstants.RIGHT_WALL) {
             dx = -dx;
             bounced = true;
@@ -121,7 +122,8 @@ public class Bullet {
         if (rippleActive) {
             graphics.setColor(Color.BLACK);
 
-            int rippleSize = (30 - rippleTimer) * 2; // Determines size of every ripple
+            // Determines size of every ripple
+            int rippleSize = (AppConstants.RIPPLE_TIMER - rippleTimer) * 2;
 
             // This loop takes care of displaying ripples(semi-circles) with calculated radius and ripple growth
             for (int i = 1; i <= 3; i++) {          // 3 Wi-Fi arcs
