@@ -86,10 +86,11 @@ public class Bullet {
      * @param b2 : bullet2
      * @return new bullet
      */
+    // TODO : Verify that there is no dependency of this method
     public static Bullet merge(Bullet b1, Bullet b2) {
         // Create a new bullet at the average position
-        double newX = (b1.x + b2.x) / 2;
-        double newY = (b1.y + b2.y) / 2;
+        double newX = b1.x;
+        double newY = b1.y;
 
         // Option 1: Keep one direction (say b1's direction)
         double newDx = b1.dx;
@@ -101,13 +102,13 @@ public class Bullet {
     /**
      * To check whether a bouncing bullet is touching the fired bullet or not
      *
-     * @param other : bouncing bullet
+     * @param bouncingBullet : bouncing bullet
      * @return boolean status
      */
-    public boolean isTouchingRipple(Bullet other) {
+    public boolean isTouchingRipple(Bullet bouncingBullet) {
         int rippleRadius = (30 - rippleTimer) * 2 * 3 / 2; // approx outer ripple radius
 
-        double distance = Math.hypot(this.x - other.x, this.y - other.y);
+        double distance = Math.hypot(this.x - bouncingBullet.getX(), this.y - bouncingBullet.getY());
         return distance < rippleRadius;
     }
 
