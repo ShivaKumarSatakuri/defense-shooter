@@ -37,8 +37,10 @@ public class Bullet {
      * This method keeps the bullet moving until it hits the wall(s). When hit, it'll invoke the bounce method
      */
     public void moveBulletAhead() {
-        x += dx * AppConstants.BULLET_SPEED;
-        y += dy * AppConstants.BULLET_SPEED;
+
+        // Setting the direction of the bullet
+        x += dx * AppConstants.BULLET_SPEED;    // x co-ordinate remains constant. Bullet doesn't change direction in x axis
+        y += dy * AppConstants.BULLET_SPEED;    // Bullet keeps going up, so y co-ordinate keeps decreasing until reaches top wall
 
         // Ripple display decider and enabler
         if (rippleTimer > 0) rippleTimer--;
