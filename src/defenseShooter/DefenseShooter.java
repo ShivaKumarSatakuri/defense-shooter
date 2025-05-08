@@ -203,12 +203,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
                 if (floatingBullet.isRippleActive()) continue; // Only check non-ripple bullets
 
                 if (b.isTouchingRipple(floatingBullet)) {
-                    // Merge the floating bullet into ripple bullet
-                    /*Bullet merged = Bullet.merge(b, floatingBullet);
-
-                    bullets.remove(floatingBullet);
-                    bullets.remove(b);
-                    bullets.add(merged);*/
+                    // Merge the floating bullet into ripple bullet, so removing floating bullet
                     bullets.remove(floatingBullet);
 
                     break; // Restart loop since list changed
@@ -265,17 +260,13 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
             for (int j = 0; j < bullets.size(); j++) {
                 if (i == j) continue;
 
-                Bullet otherBullet = bullets.get(j);
-                if (otherBullet.isRippleActive()) continue; // Only check bouncing bullets (no ripple)
+                Bullet bouncingBullet = bullets.get(j);
+                if (bouncingBullet.isRippleActive()) continue; // Only check bouncing bullets (no ripple)
 
-                if (rippleBullet.isTouchingRipple(otherBullet)) {
-                    // Merge
-                    //Bullet merged = Bullet.merge(rippleBullet, otherBullet);
+                if (rippleBullet.isTouchingRipple(bouncingBullet)) {
 
-                    bullets.remove(j); // remove other bullet first
-                    bullets.remove(i); // remove ripple bullet
-                    //bullets.add(merged);
-                    bullets.add(rippleBullet);
+                    // Merge bullets, just remove bouncing bullet so that new bullet shows up as merged bullet
+                    bullets.remove(bouncingBullet);
 
                     i--; // adjust because list shrank
                     break;
