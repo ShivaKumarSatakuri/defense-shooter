@@ -78,27 +78,6 @@ public class Bullet {
         dy = newDy / length;
     }
 
-
-    /**
-     * Merge given two bullets and return a new bullet
-     *
-     * @param b1 : bullet1
-     * @param b2 : bullet2
-     * @return new bullet
-     */
-    // TODO : Verify that there is no dependency of this method
-    public static Bullet merge(Bullet b1, Bullet b2) {
-        // Create a new bullet at the average position
-        double newX = b1.x;
-        double newY = b1.y;
-
-        // Option 1: Keep one direction (say b1's direction)
-        double newDx = b1.dx;
-        double newDy = b1.dy;
-
-        return new Bullet(newX, newY, newDx, newDy);
-    }
-
     /**
      * To check whether a bouncing bullet is touching the fired bullet or not
      *
