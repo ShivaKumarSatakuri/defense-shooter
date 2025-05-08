@@ -209,7 +209,6 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
                     break; // Restart loop since list changed
                 }
             }
-
         }
 
         for (Bullet b : bouncingBullets) {
@@ -227,14 +226,24 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
         /*>>>>>> Keep player inside the walls <<<<<*/
         keepPlayerInsideTheWalls();
 
+        fireNewBulletWhenCTRLIsPressed();
+    }
 
-        /*>>>>>> Firing a new bullet when CTRL is pressed <<<<<*/
+    /**
+     * 1. Firing a new bullet when CTRL is pressed.
+     * 2. When CTRL is pressed, create new bullet, add it to list, play bullet sound.
+     * Since CTRL is still pressed, set canFire to false.
+     * 3. When CTRL is released, set canFire to true.
+     */
+    private void fireNewBulletWhenCTRLIsPressed() {
+        // Check if CTRL is pressed and can fire the bullet
         if (ctrlPressed && canFire) {
             bullets.add(new Bullet(playerX + (double) AppConstants.PLAYER_SIZE / 2, playerY + (double) AppConstants.PLAYER_SIZE / 2, AppConstants.FIXED_BULLET_DIRECTION_X, AppConstants.FIXED_BULLET_DIRECTION_Y));
             SoundManager.playSound("shoot.wav"); // Play shoot sound
             canFire = false; // prevent continuous firing
         }
 
+        // Enable firing next bullet when CTRL is released
         if (!ctrlPressed) {
             canFire = true; // allow firing again when ctrl released
         }
