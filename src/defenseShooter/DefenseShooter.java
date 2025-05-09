@@ -257,8 +257,10 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
     }
 
     private void keepPlayerInsideTheWalls() {
-        playerX = Math.max(AppConstants.LEFT_WALL_BOUNDARY, Math.min(playerX, AppConstants.WALL_WIDTH + (AppConstants.LEFT_WALL_BOUNDARY - AppConstants.PLAYER_SIZE)));
-        playerY = Math.max(AppConstants.TOP_WALL_BOUNDARY, Math.min(playerY, AppConstants.WALL_HEIGHT + (AppConstants.TOP_WALL_BOUNDARY - AppConstants.PLAYER_SIZE)));
+        /*playerX = Math.max(AppConstants.LEFT_WALL_BOUNDARY, Math.min(playerX, AppConstants.WALL_WIDTH + (AppConstants.LEFT_WALL_BOUNDARY - AppConstants.PLAYER_SIZE)));
+        playerY = Math.max(AppConstants.TOP_WALL_BOUNDARY, Math.min(playerY, AppConstants.WALL_HEIGHT + (AppConstants.TOP_WALL_BOUNDARY - AppConstants.PLAYER_SIZE)));*/
+        playerX = Math.clamp(playerX, AppConstants.LEFT_WALL_BOUNDARY, AppConstants.WALL_WIDTH + (AppConstants.LEFT_WALL_BOUNDARY - AppConstants.PLAYER_SIZE));
+        playerY = Math.clamp(playerY, AppConstants.TOP_WALL_BOUNDARY, AppConstants.WALL_HEIGHT + (AppConstants.TOP_WALL_BOUNDARY - AppConstants.PLAYER_SIZE));
     }
 
     private void checkAndMergeBullets() {
