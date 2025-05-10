@@ -378,8 +378,8 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
      */
     private void restartGame() {
         // Reset everything
-        playerX = 300;
-        playerY = 300;
+        playerX = AppConstants.DEFAULT_PLAYER_POSITION_X;
+        playerY = AppConstants.DEFAULT_PLAYER_POSITION_Y;
         bullets.clear();
         bouncingBullets.clear();
         score = 0;
