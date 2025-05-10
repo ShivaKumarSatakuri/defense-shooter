@@ -31,7 +31,7 @@ public class AppConstants {
     public static final int BOTTOM_WALL = TOP_WALL + WALL_HEIGHT;
 
     /*>>>>> Wall boundaries <<<<<*/
-    public static final int DEFAULT_PLAYER_POSITION_X = 300;
+    public static final int DEFAULT_PLAYER_POSITION_X = 290;
     public static final int DEFAULT_PLAYER_POSITION_Y = 300;
 
     public static final int COLLISION_RANGE = 50;          // Minimum distance to detect a collision between a bouncing bullet and fired bullet
