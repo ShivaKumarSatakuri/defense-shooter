@@ -191,18 +191,22 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
     public void actionPerformed(ActionEvent e) {
 
         // Update bullets
-        for (Bullet b : bullets) {
-            b.moveBulletAhead();
+        for (Bullet bullet : bullets) {
+            bullet.moveBulletAhead();
             checkAndMergeBullets();
 
-            //--------
-            if (!b.isRippleActive()) continue; // Only check ripple bullets
+            // Skip the flow for bullets without ripple
+            if (!bullet.isRippleActive()) continue;
 
             for (Bullet floatingBullet : bullets) {
-                if (b == floatingBullet) continue; // Don't check self
-                if (floatingBullet.isRippleActive()) continue; // Only check non-ripple bullets
 
-                if (b.isTouchingRipple(floatingBullet)) {
+                /*
+                 * - Don't check self
+                 * - Only check non-ripple bullets
+                 * - check is bullet is touching floating bullet
+                 */
+                if (bullet != floatingBullet && !floatingBullet.isRippleActive() && bullet.isTouchingRipple(floatingBullet)) {
+
                     // Merge the floating bullet into ripple bullet, so removing floating bullet
                     bullets.remove(floatingBullet);
 
@@ -262,25 +266,33 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
         playerY = Math.clamp(playerY, AppConstants.TOP_WALL_BOUNDARY, AppConstants.WALL_HEIGHT + (AppConstants.TOP_WALL_BOUNDARY - AppConstants.PLAYER_SIZE));
     }
 
+
+    /**
+     * This method will identify rippling and bouncing bullets. Merge them both when they collide
+     * 1. Find rippling bullet, else keep skipping the flow
+     * 2. Find a bouncing bullet
+     * 3. Check if both bullets are colliding
+     * 4. Remove bouncing bullet from list
+     */
     private void checkAndMergeBullets() {
-        for (int i = 0; i < bullets.size(); i++) {
-            Bullet rippleBullet = bullets.get(i);
-            if (!rippleBullet.isRippleActive()) continue; // Only bullets that are still rippling
+        for (Bullet rippleBullet : bullets) {
 
-            for (int j = 0; j < bullets.size(); j++) {
-                if (i == j) continue;
+            if (!rippleBullet.isRippleActive()) continue; // Skip the flow if bullet is not rippling
 
-                Bullet bouncingBullet = bullets.get(j);
-                if (bouncingBullet.isRippleActive()) continue; // Only check bouncing bullets (no ripple)
+            for (Bullet bouncingBullet : bullets) {
 
-                if (rippleBullet.isTouchingRipple(bouncingBullet)) {
+                /*
+                 * - Check to make sure that rippling bullet and bouncing bullet are not same
+                 * - Ripple of bouncing bullet is not active
+                 * - Ripple bullet is touching the bouncing bullet
+                 */
+                if (rippleBullet != bouncingBullet && !bouncingBullet.isRippleActive() && rippleBullet.isTouchingRipple(bouncingBullet)) {
 
                     // Merge bullets, just remove bouncing bullet so that new bullet shows up as merged bullet
                     bullets.remove(bouncingBullet);
-
-                    i--; // adjust because list shrank
                     break;
                 }
+
             }
         }
     }
