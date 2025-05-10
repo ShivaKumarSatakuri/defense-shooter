@@ -196,7 +196,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
             checkAndMergeBullets();
 
             // Skip the flow for bullets without ripple
-            if (!bullet.isRippleActive()) continue;
+            if (bullet.isRippleNotActive()) continue;
 
             for (Bullet floatingBullet : bullets) {
 
@@ -205,7 +205,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
                  * - Only check non-ripple bullets
                  * - check is bullet is touching floating bullet
                  */
-                if (bullet != floatingBullet && !floatingBullet.isRippleActive() && bullet.isTouchingRipple(floatingBullet)) {
+                if (bullet != floatingBullet && floatingBullet.isRippleNotActive() && bullet.isTouchingRipple(floatingBullet)) {
 
                     // Merge the floating bullet into ripple bullet, so removing floating bullet
                     bullets.remove(floatingBullet);
@@ -277,7 +277,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
     private void checkAndMergeBullets() {
         for (Bullet rippleBullet : bullets) {
 
-            if (!rippleBullet.isRippleActive()) continue; // Skip the flow if bullet is not rippling
+            if (rippleBullet.isRippleNotActive()) continue; // Skip the flow if bullet is not rippling
 
             for (Bullet bouncingBullet : bullets) {
 
@@ -286,7 +286,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
                  * - Ripple of bouncing bullet is not active
                  * - Ripple bullet is touching the bouncing bullet
                  */
-                if (rippleBullet != bouncingBullet && !bouncingBullet.isRippleActive() && rippleBullet.isTouchingRipple(bouncingBullet)) {
+                if (rippleBullet != bouncingBullet && bouncingBullet.isRippleNotActive() && rippleBullet.isTouchingRipple(bouncingBullet)) {
 
                     // Merge bullets, just remove bouncing bullet so that new bullet shows up as merged bullet
                     bullets.remove(bouncingBullet);
@@ -325,7 +325,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
                 }
             }
 
-            if (!hit && !bullet.isRippleActive()) {
+            if (!hit && bullet.isRippleNotActive()) {
                 // Turn fired bullet into bouncing bullet if missed
                 bouncingBullets.add(new Bullet((int) bullet.getX(), (int) bullet.getY(), AppConstants.FIXED_BULLET_DIRECTION_X, AppConstants.FIXED_BULLET_DIRECTION_Y));
                 bulletIterator.remove(); // Remove original

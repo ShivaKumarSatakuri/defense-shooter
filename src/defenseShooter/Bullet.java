@@ -143,7 +143,7 @@ public class Bullet {
         this.dy = dy;
     }
 
-    public boolean isRippleActive() {
-        return rippleActive;
+    public boolean isRippleNotActive() {
+        return !rippleActive;
     }
 }
