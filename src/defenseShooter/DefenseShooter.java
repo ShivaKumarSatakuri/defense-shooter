@@ -317,8 +317,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
                     SoundManager.playSound("hit.wav"); // Play hit sound
 
                     // Bounce the fired bullet
-                    bullet.setDx(-bullet.getDx() + (Math.random() - 0.5) * 2);
-                    bullet.setDy(-bullet.getDy() + (Math.random() - 0.5) * 2);
+                    bullet.moveBulletAhead();
 
                     hit = true;
                     break;
