@@ -86,7 +86,7 @@ public class Bullet {
      * @return boolean status
      */
     public boolean isTouchingRipple(Bullet bouncingBullet) {
-        int rippleRadius = (30 - rippleTimer) * 2 * 3 / 2; // approx outer ripple radius
+        int rippleRadius = (AppConstants.RIPPLE_TIMER - rippleTimer) * 2 * 3 / 2; // approx outer ripple radius
 
         double distance = Math.hypot(this.x - bouncingBullet.getX(), this.y - bouncingBullet.getY());
         return distance < rippleRadius;
