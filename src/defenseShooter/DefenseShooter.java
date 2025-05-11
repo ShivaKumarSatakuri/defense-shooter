@@ -198,17 +198,18 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
             // Skip the flow for bullets without ripple
             if (bullet.isRippleNotActive()) continue;
 
-            for (Bullet floatingBullet : bullets) {
+            for (Bullet bouncingBullet : bullets) {
 
                 /*
                  * - Don't check self
                  * - Only check non-ripple bullets
                  * - check is bullet is touching floating bullet
                  */
-                if (bullet != floatingBullet && floatingBullet.isRippleNotActive() && bullet.isTouchingRipple(floatingBullet)) {
+                boolean isTouchingRipple = bullet.isTouchingRipple(bouncingBullet,  bouncingBullet.getX() - bouncingBullet.getRadius() / 2,  bouncingBullet.getY() - bouncingBullet.getRadius() / 2,  (bouncingBullet.getRadius()), (bouncingBullet.getRadius()), 0, 180);
+                if (bullet != bouncingBullet && bouncingBullet.isRippleNotActive() && isTouchingRipple) {
 
                     // Merge the floating bullet into ripple bullet, so removing floating bullet
-                    bullets.remove(floatingBullet);
+                    bullets.remove(bouncingBullet);
 
                     break; // Restart loop since list changed
                 }
@@ -242,7 +243,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
     private void fireNewBulletWhenCTRLIsPressed() {
         // Check if CTRL is pressed and can fire the bullet
         if (ctrlPressed && canFire) {
-            bullets.add(new Bullet(playerX + (double) AppConstants.PLAYER_SIZE / 2, playerY + (double) AppConstants.PLAYER_SIZE / 2, AppConstants.FIXED_BULLET_DIRECTION_X, AppConstants.FIXED_BULLET_DIRECTION_Y));
+            bullets.add(new Bullet(playerX + (double) AppConstants.PLAYER_SIZE / 2, playerY + (double) AppConstants.PLAYER_SIZE / 2, AppConstants.FIXED_BULLET_DIRECTION_X, AppConstants.FIXED_BULLET_DIRECTION_Y, true));
             SoundManager.playSound("shoot.wav"); // Play shoot sound
             canFire = false; // prevent continuous firing
         }
@@ -326,7 +327,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
 
             if (!hit && bullet.isRippleNotActive()) {
                 // Turn fired bullet into bouncing bullet if missed
-                bouncingBullets.add(new Bullet((int) bullet.getX(), (int) bullet.getY(), AppConstants.FIXED_BULLET_DIRECTION_X, AppConstants.FIXED_BULLET_DIRECTION_Y));
+                bouncingBullets.add(new Bullet((int) bullet.getX(), (int) bullet.getY(), AppConstants.FIXED_BULLET_DIRECTION_X, AppConstants.FIXED_BULLET_DIRECTION_Y, true));
                 bulletIterator.remove(); // Remove original
             }
         }

@@ -9,6 +9,7 @@ public class Bullet {
     private double dy;
     private boolean rippleActive;
     private int rippleTimer;
+    private double radius;
 
     /**
      * Creates a new bullet
@@ -21,14 +22,14 @@ public class Bullet {
      * @param dx sets direction of x
      * @param dy sets direction of y
      */
-    public Bullet(double x, double y, double dx, double dy) {
+    public Bullet(double x, double y, double dx, double dy, boolean rippleActive) {
         this.x = x;
         this.y = y;
 
         this.dx = dx; // No need to normalize if firing (0, -1)
         this.dy = dy;
 
-        this.rippleActive = true;
+        this.rippleActive = rippleActive;
         this.rippleTimer = AppConstants.RIPPLE_TIMER;
     }
 
@@ -91,6 +92,54 @@ public class Bullet {
         return distance < rippleRadius;
     }
 
+    /**
+     * @param bouncingBullet to get its co-ordinates
+     * @param leftEnd        : The left beginning point of the ripple
+     * @param rightEnd       : The right beginning point of the ripple
+     * @param width          : Same as radius of ripple
+     * @param height         : Same as radius of ripple
+     * @param startAngle     : Set this to zero
+     * @param arcAngle       : Set this to 180
+     * @return boolean status
+     */
+    public boolean isTouchingRipple(Bullet bouncingBullet, double leftEnd, double rightEnd, double width, double height, double startAngle, double arcAngle) {
+        // 1. Find the center and radius
+        double centerX = leftEnd + width / 2.0;
+        double centerY = rightEnd + height / 2.0;
+        radius = width / 2.0; // Assuming width == height
+
+        // 2. Check if point is within the radius (circle check)
+        double distanceOfX = bouncingBullet.x - centerX;
+        double distanceOfY = bouncingBullet.y - centerY;
+        double distanceSquared = distanceOfX * distanceOfX + distanceOfY * distanceOfY;
+        if (distanceSquared > radius * radius) {
+            return false;
+        }
+
+        // 3. Calculate angle of point relative to center
+        double angle = Math.toDegrees(Math.atan2(-distanceOfY, distanceOfX)); // Note: y axis is inverted in screen coordinates
+        if (angle < 0) angle += 360;
+
+        // 4. Normalize start and end angle
+        int endAngle = (int) (startAngle + arcAngle);
+        int normalizedStart = (int) (((startAngle % 360) + 360) % 360);
+        int normalizedEnd = ((endAngle % 360) + 360) % 360;
+
+        // 5. Check if angle is within arc sweep
+        if (arcAngle >= 0) {
+            if (normalizedStart <= normalizedEnd) {
+                return angle >= normalizedStart && angle <= normalizedEnd;
+            } else {
+                return angle >= normalizedStart || angle <= normalizedEnd;
+            }
+        } else {
+            if (normalizedEnd <= normalizedStart) {
+                return angle <= normalizedStart && angle >= normalizedEnd;
+            } else {
+                return angle <= normalizedStart || angle >= normalizedEnd;
+            }
+        }
+    }
 
     /**
      * 1. Check if ripple is active and draw ripples
@@ -109,8 +158,8 @@ public class Bullet {
 
             // This loop takes care of displaying ripples(semi-circles) with calculated radius and ripple growth
             for (int i = 1; i <= 3; i++) {          // 3 Wi-Fi arcs
-                int radius = rippleSize * i;        //determines size of each ripple
-                graphics.drawArc((int) (x - (double) radius / 2), (int) (y - (double) radius / 2), radius, radius, 0, 180);
+                radius = (double) rippleSize * i;        //determines size of each ripple
+                graphics.drawArc((int) (x - radius / 2), (int) (y - radius / 2), (int) radius, (int) radius, 0, 180);
             }
         }
 
@@ -127,23 +176,15 @@ public class Bullet {
         return x;
     }
 
-    public double getDx() {
-        return dx;
-    }
-
-    public void setDx(double dx) {
-        this.dx = dx;
-    }
-
-    public double getDy() {
-        return dy;
-    }
-
-    public void setDy(double dy) {
-        this.dy = dy;
-    }
-
     public boolean isRippleNotActive() {
         return !rippleActive;
+    }
+
+    public void setRippleTimer(int rippleTimer) {
+        this.rippleTimer = rippleTimer;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 }
