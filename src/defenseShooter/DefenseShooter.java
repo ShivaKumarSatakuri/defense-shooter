@@ -193,7 +193,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
         // Update bullets
         for (Bullet bullet : bullets) {
             bullet.moveBulletAhead();
-            checkAndMergeBullets();
+            //checkAndMergeBullets();
 
             // Skip the flow for bullets without ripple
             if (bullet.isRippleNotActive()) continue;
@@ -218,7 +218,7 @@ public class DefenseShooter extends JPanel implements ActionListener, KeyListene
 
         for (Bullet b : bouncingBullets) {
             b.moveBulletAhead();
-            checkAndMergeBullets();
+            //checkAndMergeBullets();
         }
 
         checkCollisions();
