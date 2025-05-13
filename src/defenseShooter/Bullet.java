@@ -118,12 +118,12 @@ public class Bullet {
 
         // 3. Calculate angle of point relative to center
         double angle = Math.toDegrees(Math.atan2(-distanceOfY, distanceOfX)); // Note: y axis is inverted in screen coordinates
-        if (angle < 0) angle += 360;
+        if (angle < 0) angle += 180;
 
         // 4. Normalize start and end angle
         int endAngle = (int) (startAngle + arcAngle);
-        int normalizedStart = (int) (((startAngle % 360) + 360) % 360);
-        int normalizedEnd = ((endAngle % 360) + 360) % 360;
+        int normalizedStart = (int) (((startAngle % 180) + 180) % 180);
+        int normalizedEnd = ((endAngle % 180) + 180) % 180;
 
         // 5. Check if angle is within arc sweep
         if (arcAngle >= 0) {
