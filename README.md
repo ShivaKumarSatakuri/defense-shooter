@@ -26,3 +26,4 @@
 # Future enhancements
 - Add a jet as an image for the player
 - Add game sounds like firing a bullet and bullets hitting each other
+- Possible refactoring of code if need be
